@@ -25,6 +25,8 @@ export default {
   },
   methods: {
     async login() {
+       
+      try{
         const response = await axios.post('http://127.0.0.1:8000/api/integration/auth/token/', {
           username: this.username,
           password: this.password
@@ -40,6 +42,9 @@ export default {
           this.$router.push({ name: 'Home' });
         } else {
           alert("Incorrect email or password");
+        }}
+        catch{
+          alert("Incorrect email or password")
         }
     }
   }
