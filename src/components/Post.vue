@@ -1,4 +1,5 @@
 <template>
+    <Header></Header>
   <div class="container">
     <h2>Create New Blog Article</h2>
     <div class="form">
