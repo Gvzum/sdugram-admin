@@ -2,6 +2,7 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import Categories from './components/Categories.vue'
 import Management from './components/UserManagement.vue'
+import Post from './components/Post.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 
 const routes =[
@@ -29,7 +30,11 @@ const routes =[
         name: 'UserManagement',
         component:Management,
         path:'/management',
-
+    },
+    {
+        name: 'CreatePost',
+        component:Post,
+        path:'/post',
     }
 ]
 const router=createRouter({

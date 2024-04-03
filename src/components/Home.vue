@@ -5,14 +5,11 @@
     <div class="container mt-3">
       <div class="row">
       <div v-for="mentor in mentors" :key="mentor.id" class="card" style="width:30%">
-        <div class="d-flex justify-content-center align-items-center">
-          <img class="card-img-top" :src="mentor.img">
-        </div>
         <div class="card-body">
           <h4 class="card-title">{{ mentor.name }} {{ mentor.surname }}</h4>
           <p class="card-text">{{ mentor.letter }}</p>
           <a href="#" class="btn btn-success">Accept</a>
-          <a v-on:click="decline" class="fa fa-trash">Decline</a>
+          <a v-on:click="decline" class="btn btn-danger">Decline</a>
         </div>
         <a href="#" >See more</a>
       </div>

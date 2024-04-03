@@ -4,39 +4,46 @@
   <div class="login">
     <input
       type="text"
-      v-model="email"
+      v-model="username"
       placeholder="Enter email or phone number"
     />
     <input type="password" v-model="password" placeholder="Enter password" />
     <button v-on:click="login">Login</button>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 export default {
-    name: 'LoginForm',
-    data() {
-        return {
-            email: '',
-            password: '',
-            errorMessage: ''
-        };
-    },
-    methods: {
-        async login() {
-   //**         try{*/
-                let result = await axios.get(`http://localhost:3000/user?email=${this.email}&password=${this.password}`
-                    );
-                if(result.status==200 && result.data.length>0){
-                    localStorage.setItem("user-info", JSON.stringify(result.data[0]));
-                    this.$router.push({name:'Home'});
-                }
-                else
-                alert("Incorrect email or password");
-        },
-    },
+  name: 'LoginForm',
+  data() {
+    return {
+      username: '',
+      password: '',
+      errorMessage: ''
+    };
+  },
+  methods: {
+    async login() {
+        const response = await axios.post('http://127.0.0.1:8000/api/integration/auth/token/', {
+          username: this.username,
+          password: this.password
+        }, {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }
+        });
+        if (response.status === 200) {
+          localStorage.setItem("user-info", JSON.stringify(response.data));
+          console.log("Response data:", response.data);
+          this.$router.push({ name: 'Home' });
+        } else {
+          alert("Incorrect email or password");
+        }
+    }
+  }
 };
-
 </script>
 
 <style>
