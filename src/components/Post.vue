@@ -28,7 +28,7 @@
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="text" id="price" v-model="price" placeholder="Enter price" />
+        <input type="number" id="price" v-model="price" placeholder="Enter price" />
       </div>
       <button @click="createArticle">Create Article</button>
       <b-modal ref="myModal" title="Success">
@@ -65,7 +65,6 @@ export default {
   formData.append('price', this.price);
 
   const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-  try {
     const response = await axios.post(
       'http://127.0.0.1:8000/api/integration/blog/articles/create/',
       formData,
@@ -76,16 +75,10 @@ export default {
         },
       }
     );
-    this.$refs.myModal.show();
     console.log(response);
-  } catch (error) {
-    console.error('Error:', error);
-    if (error.response && error.response.data) {
-      console.log('Server returned:', error.response.data); 
-    } else {
-      console.log('No response data from server');
+    if (response.status === 201) {
+      alert("Article created successfully");
     }
-  }
 }
   },};
 </script>
