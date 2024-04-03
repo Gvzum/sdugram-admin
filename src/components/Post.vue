@@ -31,9 +31,6 @@
         <input type="number" id="price" v-model="price" placeholder="Enter price" />
       </div>
       <button @click="createArticle">Create Article</button>
-      <b-modal ref="myModal" title="Success">
-      <p>Your article has been successfully created.</p>
-    </b-modal>
     </div>
   </div>
 </template>
