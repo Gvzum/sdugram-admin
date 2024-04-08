@@ -1,5 +1,5 @@
 <template>
-    <Header></Header>
+  <Header></Header>
   <div class="container">
     <h2>Create New Blog Article</h2>
     <div class="form">
@@ -31,16 +31,24 @@
         <label for="price">Price</label>
         <input type="number" id="price" v-model="price" placeholder="Enter price" />
       </div>
+      <div class="form-group">
+        <label for="price">Categories</label>
+        <input type="text" id="categories" v-model="categories" placeholder="Enter categories" />
+      </div>
       <button @click="createArticle">Create Article</button>
     </div>
   </div>
 </template>
 
 <script>
+import Header from './Header.vue'
 import axios from 'axios';
 
 export default {
   name: 'CreatePost',
+  components:{
+    Header
+  },
   data() {
     return {
       title: '',
@@ -50,6 +58,7 @@ export default {
       quantity: '',
       location: '',
       price: '',
+      categories:'',
     };
   },
   methods: {
@@ -61,10 +70,11 @@ export default {
   formData.append('quantity', this.quantity);
   formData.append('location', this.location);
   formData.append('price', this.price);
+  formData.append('categories', this.categories);
 
   const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
     const response = await axios.post(
-      'http://127.0.0.1:8000/api/integration/blog/articles/create/',
+      'http://93.183.84.234:8000/api/integration/blog/articles/create/',
       formData,
       {
         headers: {

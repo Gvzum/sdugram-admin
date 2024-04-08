@@ -27,7 +27,7 @@ export default {
     async login() {
        
       try{
-        const response = await axios.post('http://127.0.0.1:8000/api/integration/auth/token/', {
+        const response = await axios.post('http://93.183.84.234:8000/api/integration/auth/token/', {
           username: this.username,
           password: this.password
         }, {
