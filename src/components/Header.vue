@@ -3,10 +3,13 @@
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="/">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -25,7 +28,7 @@
               <a class="nav-link" href="/management">User Management</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/post">Post</a>
+              <a class="nav-link" href="/list-posts">Post</a>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -40,21 +43,19 @@
 </template>
 
 <script>
-export default{
-    name: 'HeaderLine',
-    data(){
-        return {
-          mentors: [],
+export default {
+  name: 'HeaderLine',
+  data() {
+    return {
+      mentors: [],
     };
-    },
-    methods: {
-    logout()
-    {
+  },
+  methods: {
+    logout() {
       localStorage.clear();
-      this.$router.push({name:'LoginForm'})
+      this.$router.push({name: 'LoginForm'})
     }
-}
-
+  }
 }
 </script>
 <style>
