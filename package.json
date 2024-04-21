@@ -13,11 +13,13 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@jamescoyle/vue-icon": "^0.1.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
+    "jquery": "^3.7.1",
     "vue": "^3.4.21",
     "vue-router": "^4.0.13"
   },

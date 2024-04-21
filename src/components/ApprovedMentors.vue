@@ -1,21 +1,22 @@
 <template>
-    <Header></Header>
-    <div>
-      <h3>Approved mentors</h3>
-      <div class="container mt-3">
-        <div class="row">
-          <div v-for="mentor in results" :key="mentor.id" class="card" style="width:30%">
-            <div class="card-body">
-              <h4 class="card-title">{{ mentor.user.username }}</h4>
-              <p class="card-text">{{ mentor.cover_letter }}</p>
-            </div>
-            <button v-on:click="seeMore" class="btn btn-info" style="background-color: rgb(80, 54, 248)">see more</button>
-            <div v-if="mentor.request_status === 'APPROVED'">approved</div>
+  <Header></Header>
+  <div>
+    <h3>Approved mentors</h3>
+    <div class="container mt-3">
+      <div class="row">
+        <div v-for="mentor in results" :key="mentor.id" class="card" style="width:30%">
+          <div class="card-body">
+            <h4 class="card-title">{{ mentor.user.username }}</h4>
+            <p class="card-text">{{ mentor.cover_letter }}</p>
           </div>
-        </div>  
-      </div>
-    </div>  
-  </template>
+          <button v-on:click="seeMore(mentor.id)" class="btn btn-info" style="background-color: rgb(80, 54, 248)">see more</button>
+          <div v-if="mentor.request_status === 'APPROVED'">approved</div>
+        </div>
+      </div>  
+    </div>
+  </div>  
+</template>
+
   
   <script>  
   import Header from './Header.vue'
@@ -47,8 +48,8 @@
           console.error('Error fetching mentors:', error);
         }
       },
-      seeMore(){
-        this.$router.push({name: 'MentorsDetail'})
+      seeMore(mentorId){
+        this.$router.push({ name: 'MentorsDetail', params: { mentorId: mentorId } });
       },
     },
     created() {

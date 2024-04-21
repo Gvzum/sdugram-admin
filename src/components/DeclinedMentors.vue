@@ -9,7 +9,7 @@
               <h4 class="card-title">{{ mentor.user.username }}</h4>
               <p class="card-text">{{ mentor.cover_letter }}</p>
             </div>
-            <button v-on:click="seeMore" class="btn btn-info" style="background-color: rgb(80, 54, 248)">see more</button>
+            <button v-on:click="seeMore((mentor.id))" class="btn btn-info" style="background-color: rgb(80, 54, 248)">see more</button>
             <div v-if="mentor.request_status === 'DECLINED'">declined</div>
           </div>
         </div>  
@@ -47,9 +47,10 @@
           console.error('Error fetching mentors:', error);
         }
       },
-      seeMore(){
-        this.$router.push({name: 'MentorsDetail'})
+      seeMore(mentorId){
+        this.$router.push({ name: 'MentorsDetail', params: { mentorId: mentorId } });
       },
+
     },
     created() {
       this.declinedMentors();
