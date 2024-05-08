@@ -51,22 +51,16 @@ export default {
   methods: {
     onError(error) {
       if (error.name === 'NotAllowedError') {
-        // user denied camera access permission
         this.error = "Denied access for camera"
       } else if (error.name === 'NotFoundError') {
-        // no suitable camera device installed
         this.error = "No suitable camera device"
       } else if (error.name === 'NotSupportedError') {
-        // page is not served over HTTPS (or localhost)
         this.error = "Page is not served over HTTPS"
       } else if (error.name === 'NotReadableError') {
-        // maybe camera is already in use
         this.error = "Maybe camera is already in use"
       } else if (error.name === 'OverconstrainedError') {
-        // did you request the front camera although there is none?
         this.error = "Did you request the front camera"
       } else if (error.name === 'StreamApiNotSupportedError') {
-        // browser seems to be lacking features
         this.error = "Browser is not supported"
       }
     },

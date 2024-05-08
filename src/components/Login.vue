@@ -39,6 +39,7 @@ export default {
         if (response.status === 200) {
           localStorage.setItem("user-info", JSON.stringify(response.data));
           console.log("Response data:", response.data);
+
           this.$router.push({ name: 'Home' });
         } else {
           alert("Incorrect email or password");

@@ -3,9 +3,7 @@
   <div class="m-4">
     <div class="row m-3">
       <div class="col d-flex">
-        <!-- Header -->
         <h3 class="m-0">List of Posts</h3>
-        <!-- Button to create a new article -->
       </div>
       <div class="col d-flex justify-content-end">
         <router-link to="/create-post" class="btn btn-primary">Add</router-link>
@@ -22,7 +20,6 @@
           <th>Published Date</th>
           <th>Scanner Ticket</th>
           <th>Delete</th>
-          <!-- Add more columns as needed -->
         </tr>
         </thead>
         <tbody>
@@ -37,10 +34,8 @@
             </router-link>
           </td>
           <td>
-            <!-- Delete button -->
             <button class="btn btn-danger" @click="deletePost(post.id)">Delete</button>
           </td>
-          <!-- Add more columns as needed -->
         </tr>
         </tbody>
       </table>
@@ -71,7 +66,7 @@ export default {
     async listOfPosts() {
       const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
       try {
-        const response = await axios.get('https://sdugram.kz/api/integration/blog/articles',
+        const response = await axios.get('http://93.183.84.234:8000/api/integration/blog/articles',
             {
               headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -109,8 +104,6 @@ export default {
     }
   },
   mounted() {
-    // Fetch items from the server or an API
-    // and assign them to the 'items' data property
     this.listOfPosts()
   },
   computed: {},
@@ -118,7 +111,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your CSS styles here */
 .btn-create {
   float: right;
   margin-bottom: 10px;
@@ -130,7 +122,7 @@ export default {
 }
 
 .table-container {
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto; 
 }
 
 .post-table {

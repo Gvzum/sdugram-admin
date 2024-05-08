@@ -124,6 +124,7 @@ export default {
         const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
         const response = await axios.get(
           `http://93.183.84.234:8000/api/manage/users/user?page=${this.currentPage}`,
+
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -131,7 +132,7 @@ export default {
             }
           }
         );
-
+        console.log(this.currentPage);
         this.users = response.data.results.filter(user => user.is_active === true);
         this.totalPages = response.data.total_pages;
         console.log('Users length:', this.users.length);
