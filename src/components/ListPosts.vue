@@ -47,6 +47,8 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 
+const baseUrl = "https://sdugram.kz/";
+
 export default {
   name: 'ListPosts',
   components: {Header},
@@ -64,12 +66,15 @@ export default {
       }
     },
     async listOfPosts() {
-      const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
+      const userInfo = JSON.parse(localStorage.getItem('user-info'));
+      const authorQueryParam = userInfo.isSuperUser ? '' : `?author=${userInfo.userId}`
+      const listOfArticlesUrl = `${baseUrl}api/integration/blog/articles${authorQueryParam}`
       try {
-        const response = await axios.get('http://93.183.84.234:8000/api/integration/blog/articles',
+        const response = await axios.get(
+            listOfArticlesUrl,
             {
               headers: {
-                'Authorization': `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${userInfo.access}`,
                 'Content-Type': 'application/json',
               },
             }
@@ -84,9 +89,10 @@ export default {
     },
     async deletePost(postID) {
       const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-
+      const deleteArticleUrl = `${baseUrl}api/integration/blog/articles/${postID}/delete`
       try {
-        await axios.delete(`https://sdugram.kz/api/integration/blog/articles/${postID}/delete`,
+        await axios.delete(
+            deleteArticleUrl,
             {
               headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -122,7 +128,7 @@ export default {
 }
 
 .table-container {
-  overflow-x: auto; 
+  overflow-x: auto;
 }
 
 .post-table {

@@ -73,9 +73,31 @@ const routes = [
     meta: {requiresAuth: true}
   },
 ]
+
 const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+async function isClientAuthenticated() {
+  const userInfo = JSON.parse(localStorage.getItem('user-info'))
+  if (userInfo === null) {
+    return [false, false];
+  }
+
+  return !(userInfo.access === undefined || userInfo.access === null)
+}
+
+router.beforeEach(async (to, from, next) => {
+  const isAuthenticated = await isClientAuthenticated();
+
+  // Check if the route requires authentication and user is not authenticated
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    // Redirect to login page
+    next('/');
+  } else {
+    next();
+  }
+});
 
 export default router

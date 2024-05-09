@@ -1,11 +1,11 @@
 <template>
-  <Header></Header>
+  <Header/>
   <div class="container">
     <h2>Create New Blog Article</h2>
     <div class="form">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" v-model="title" placeholder="Enter title" />
+        <input type="text" id="title" v-model="title" placeholder="Enter title"/>
       </div>
       <div class="form-group">
         <label for="body">Body</label>
@@ -13,27 +13,27 @@
       </div>
       <div class="form-group">
         <label for="startTime">Start Time</label>
-        <input type="datetime-local" id="startTime" v-model="startTime" />
+        <input type="datetime-local" id="startTime" v-model="startTime"/>
       </div>
       <div class="form-group">
         <label for="image">Image</label>
-        <input type="file" id="image" ref="file" @change="handleFileChange" />
+        <input type="file" id="image" ref="file" @change="handleFileChange"/>
       </div>
       <div class="form-group">
         <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" v-model="quantity" placeholder="Enter quantity" />
+        <input type="number" id="quantity" v-model="quantity" placeholder="Enter quantity"/>
       </div>
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" id="location" v-model="location" placeholder="Enter location" />
+        <input type="text" id="location" v-model="location" placeholder="Enter location"/>
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" id="price" v-model="price" placeholder="Enter price" />
+        <input type="number" id="price" v-model="price" placeholder="Enter price"/>
       </div>
       <div class="form-group">
         <label for="price">Categories</label>
-        <input type="text" id="categories" v-model="categories" placeholder="Enter categories" />
+        <input type="text" id="categories" v-model="categories" placeholder="Enter categories"/>
       </div>
       <button @click="createArticle">Create Article</button>
     </div>
@@ -46,7 +46,7 @@ import axios from 'axios';
 
 export default {
   name: 'CreatePost',
-  components:{
+  components: {
     Header
   },
   data() {
@@ -58,38 +58,40 @@ export default {
       quantity: '',
       location: '',
       price: '',
-      categories:'',
+      categories: '',
     };
   },
   methods: {
     async createArticle() {
-  const formData = new FormData();
-  formData.append('title', this.title);
-  formData.append('body', this.body);
-  formData.append('start_time', this.startTime);
-  formData.append('quantity', this.quantity);
-  formData.append('location', this.location);
-  formData.append('price', this.price);
-  formData.append('categories', this.categories);
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('body', this.body);
+      formData.append('start_time', this.startTime);
+      formData.append('quantity', this.quantity);
+      formData.append('location', this.location);
+      formData.append('price', this.price);
+      formData.append('categories', this.categories);
 
-  const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-    const response = await axios.post(
-      'http://93.183.84.234:8000/api/integration/blog/articles/create/',
-      formData,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data',
-        },
+      const userInfo = JSON.parse(localStorage.getItem('user-info'));
+      const baseUrl = "https://sdugram.kz/"
+      const response = await axios.post(
+          baseUrl + 'api/integration/blog/articles/create/',
+          formData,
+          {
+            headers: {
+              'Authorization': `Bearer ${userInfo.access}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+      );
+      if (response.status === 201) {
+        alert("Article created successfully");
       }
-    );
-    console.log(response);
-    if (response.status === 201) {
-      alert("Article created successfully");
     }
-}
-  },};
+  },
+};
 </script>
+
 <style scoped>
 .container {
   max-width: 600px;
