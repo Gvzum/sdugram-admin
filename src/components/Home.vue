@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <div>
+  <div class="application-for-mentoring">
     <h3>Application for mentoring</h3>
     <div class="container mt-3">
       <div class="row">
@@ -49,7 +49,6 @@ export default {
       }
     },
     seeMore(mentorId) {
-      alert(mentorId)
       this.$router.push({ name: 'MentorsDetail', params: { mentorId: mentorId } });
   },
     async accept(mentorId) {
@@ -95,5 +94,63 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+.application-for-mentoring {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.card-title {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn {
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <Header/>
+  <Header></Header>
+  <div class="post">
   <div class="container">
     <h2>Create New Blog Article</h2>
     <div class="form">
@@ -14,10 +15,6 @@
       <div class="form-group">
         <label for="startTime">Start Time</label>
         <input type="datetime-local" id="startTime" v-model="startTime"/>
-      </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input type="file" id="image" ref="file" @change="handleFileChange"/>
       </div>
       <div class="form-group">
         <label for="quantity">Quantity</label>
@@ -37,6 +34,7 @@
       </div>
       <button @click="createArticle">Create Article</button>
     </div>
+  </div>
   </div>
 </template>
 
@@ -93,29 +91,50 @@ export default {
 </script>
 
 <style scoped>
+.post {
+  background-image: url('../assets/dom.jpg');
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 30px;
 }
 
 .form {
-  background-color: #f9f9f9;
+  background-color: #f4f4f4;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 label {
-  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 16px;
 }
 
 input[type="text"],
@@ -124,24 +143,29 @@ textarea,
 input[type="datetime-local"],
 input[type="file"] {
   width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s;
 }
 
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+input[type="datetime-local"]:focus,
 textarea {
-  height: 150px;
+  height: 120px;
 }
 
 button {
-  display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #007bff;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {

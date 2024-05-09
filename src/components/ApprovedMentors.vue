@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <div>
+  <div class="approved_mentors">
     <h3>Approved mentors</h3>
     <div class="container mt-3">
       <div class="row">
@@ -57,3 +57,54 @@
     }
   };
   </script>
+  
+  <style scoped>
+.approved_mentors {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn {
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #17a2b8;
+  margin: 10px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  opacity: 0.9;
+}
+</style>

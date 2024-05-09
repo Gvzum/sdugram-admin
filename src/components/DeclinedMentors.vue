@@ -1,6 +1,6 @@
 <template>
     <Header></Header>
-    <div>
+    <div class="declined">
       <h3>Declined mentors</h3>
       <div class="container mt-3">
         <div class="row">
@@ -57,3 +57,33 @@
     }
   };
   </script>
+  <style scoped>
+
+.declined {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+</style>

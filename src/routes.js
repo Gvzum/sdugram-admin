@@ -1,6 +1,5 @@
 import Home from './components/Home.vue'
 import Login from './components/Login.vue'
-import Categories from './components/Categories.vue'
 import Management from './components/UserManagement.vue'
 import Post from './components/Post.vue'
 import MentorsDetail from './components/MentorsDetail.vue'
@@ -23,12 +22,6 @@ const routes = [
     name: 'LoginForm',
     component: Login,
     path: '/',
-  },
-  {
-    name: 'CategoriesPage',
-    component: Categories,
-    path: '/categories',
-    meta: {requiresAuth: true}
   },
   {
     name: 'UserManagement',
