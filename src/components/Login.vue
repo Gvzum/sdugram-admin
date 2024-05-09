@@ -1,19 +1,20 @@
 <template>
-  <img class="logo" src="../assets/sdu.png" />
+  <img class="logo" src="../assets/sdu.png"/>
   <h1>Welcome to admin page</h1>
   <div class="login">
     <input
-      type="text"
-      v-model="username"
-      placeholder="Enter email or phone number"
+        type="text"
+        v-model="username"
+        placeholder="Enter email or phone number"
     />
-    <input type="password" v-model="password" placeholder="Enter password" />
+    <input type="password" v-model="password" placeholder="Enter password"/>
     <button v-on:click="login">Login</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'LoginForm',
   data() {
@@ -25,28 +26,60 @@ export default {
   },
   methods: {
     async login() {
-       
-      try{
-        const response = await axios.post('http://93.183.84.234:8000/api/integration/auth/token/', {
+      const userInfo = new Map()
+      const baseUrl = "https://sdugram.kz/"
+
+      try {
+        const authUrl = `${baseUrl}api/integration/auth/token/`
+        const requestData = {
           username: this.username,
           password: this.password
-        }, {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          }
-        });
-        if (response.status === 200) {
-          localStorage.setItem("user-info", JSON.stringify(response.data));
-          console.log("Response data:", response.data);
+        }
+        const response = await axios.post(authUrl, requestData);
 
-          this.$router.push({ name: 'Home' });
+        if (response.status === 200) {
+          console.log("Successfully authorized")
+          userInfo.set("access", response.data.access);
         } else {
           alert("Incorrect email or password");
-        }}
-        catch{
-          alert("Incorrect email or password")
+          return;
         }
+
+      } catch {
+        alert("Incorrect email or password")
+        return;
+      }
+
+      try {
+        const getInfoUrl = `${baseUrl}api/integration/user/get-user-data/`
+        const headers = {
+          "Authorization": "Bearer " + userInfo.get("access")
+        }
+        const response = await axios.get(getInfoUrl, {headers: headers});
+        const data = response.data
+        userInfo.set("role", data.profile_type);
+        userInfo.set("userId", data.id);
+        userInfo.set("isSuperUser", data.is_superuser);
+
+        if (response.status === 200) {
+          console.log("Successfully got user info")
+        } else {
+          alert("Incorrect email or password");
+          return;
+        }
+
+      } catch {
+        alert("Incorrect email or password")
+        return;
+      }
+
+      localStorage.setItem("user-info", JSON.stringify(Object.fromEntries(userInfo)));
+
+      if (userInfo.get("isSuperUser") === true) {
+        await this.$router.push({name: 'Home'});
+      } else {
+        await this.$router.push({name: 'ListPosts'});  // Permitted only posts
+      }
     }
   }
 };
@@ -57,9 +90,11 @@ export default {
   color: red;
   margin-top: 5px;
 }
+
 .logo {
   width: 100px;
 }
+
 .login input {
   width: 300px;
   height: 40px;

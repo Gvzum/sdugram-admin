@@ -15,16 +15,16 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" v-if="isSuperuser">
               <a class="nav-link" href="/home">Mentors</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isSuperuser">
               <a class="nav-link" href="/approved-mentors">Approved Mentors</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isSuperuser">
               <a class="nav-link" href="/declined-mentors">Declined Mentors</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isSuperuser">
               <a class="nav-link" href="/management">User Management</a>
             </li>
             <li class="nav-item">
@@ -49,6 +49,13 @@ export default {
     return {
       mentors: [],
     };
+  },
+  computed: {
+    isSuperuser() {
+      // Check if the client is a superuser based on the flag in localStorage
+      const userInfo = JSON.parse(localStorage.getItem('user-info'));
+      return userInfo && userInfo.isSuperUser;
+    }
   },
   methods: {
     logout() {
