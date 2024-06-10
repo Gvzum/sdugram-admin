@@ -1,23 +1,34 @@
 <template>
   <Header></Header>
   <div class="application-for-mentoring">
-    <h3>Application for mentoring</h3>
+    <h3>Application for Mentoring</h3>
     <div class="container mt-3">
-      <div class="row">
-        <div v-for="mentor in results" :key="mentor.id" class="card" style="width:30%">
-          <div class="card-body">
-            <h4 class="card-title">{{ mentor.user.username }}</h4>
-            <p class="card-text">{{ mentor.cover_letter }}</p>
-            <a href="#" class="btn btn-success" v-on:click="accept(mentor.id)">accept</a>
-            <a href="#" class="btn btn-danger" v-on:click="decline(mentor.id)">decline</a>
-          </div>
-          <button v-on:click="seeMore(mentor.id)" class="btn btn-info" style="background-color: rgb(80, 54, 248)">see more</button>
-          <div v-if="mentor.request_status === 'IN_PROGRESS'">in progress</div>
-        </div>
-      </div>  
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Cover Letter</th>
+            <th>Actions</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="mentor in results" :key="mentor.id">
+            <td>{{ mentor.user.username }}</td>
+            <td>{{ mentor.cover_letter }}</td>
+            <td>
+              <a href="#" class="btn btn-success" v-on:click="accept(mentor.id)">accept</a>
+              <a href="#" class="btn btn-danger" v-on:click="decline(mentor.id)">decline</a>
+              <button v-on:click="seeMore(mentor.id)" class="btn btn-info">see more</button>
+            </td>
+            <td v-if="mentor.request_status === 'IN_PROGRESS'">in progress</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>  
+  </div>
 </template>
+
 <script>  
 import Header from './Header.vue'
 import axios from 'axios';
@@ -36,7 +47,7 @@ export default {
     async fetchMentors() {
       try {
         const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-        const response = await axios.get('http://93.183.84.234:8000/api/integration/mentor/mentor-request/',
+        const response = await axios.get('https://sdugram.kz/api/integration/mentor/mentor-request/',
         {headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
@@ -54,7 +65,7 @@ export default {
     async accept(mentorId) {
   try {
     const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-     await axios.patch(`http://93.183.84.234:8000/api/integration/mentor/handle-mentor-request/${mentorId}`, 
+     await axios.patch(`https://sdugram.kz/api/integration/mentor/handle-mentor-request/${mentorId}`, 
       {
         request_status: 'APPROVED' 
       },
@@ -72,7 +83,7 @@ export default {
   async decline(mentorId) {
   try {
     const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-       await axios.patch(`http://93.183.84.234:8000/api/integration/mentor/handle-mentor-request/${mentorId}`, 
+       await axios.patch(`https://sdugram.kz/api/integration/mentor/handle-mentor-request/${mentorId}`, 
       {
         request_status: 'DECLINED' 
       },
@@ -103,30 +114,35 @@ export default {
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  margin-top: 20px;
 }
 
-.card {
+.table {
+  width: 100%;
+  border-collapse: collapse;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
   overflow: hidden;
 }
 
-.card-body {
-  padding: 20px;
-  background-color: #fff;
+.table thead {
+  background-color: #007bff;
+  color: #fff;
 }
 
-.card-title {
-  color: #007bff;
-  margin-bottom: 10px;
+.table th, .table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.card-text {
-  margin-bottom: 20px;
-  line-height: 1.5;
+.table th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
 .btn {

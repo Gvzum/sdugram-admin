@@ -61,34 +61,38 @@ export default {
   },
   methods: {
     async createArticle() {
-      const formData = new FormData();
-      formData.append('title', this.title);
-      formData.append('body', this.body);
-      formData.append('start_time', this.startTime);
-      formData.append('quantity', this.quantity);
-      formData.append('location', this.location);
-      formData.append('price', this.price);
-      formData.append('categories', this.categories);
+  try {
+    const formData = new FormData();
+    formData.append('title', this.title);
+    formData.append('body', this.body);
+    formData.append('start_time', this.startTime);
+    formData.append('quantity', this.quantity);
+    formData.append('location', this.location);
+    formData.append('price', this.price);
+    formData.append('categories', this.categories);
 
-      const userInfo = JSON.parse(localStorage.getItem('user-info'));
-      const baseUrl = "https://sdugram.kz/"
-      const response = await axios.post(
-          baseUrl + 'api/integration/blog/articles/create/',
-          formData,
-          {
-            headers: {
-              'Authorization': `Bearer ${userInfo.access}`,
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-      );
-      if (response.status === 201) {
-        alert("Article created successfully");
+    const userInfo = JSON.parse(localStorage.getItem('user-info'));
+    const baseUrl = "https://sdugram.kz/"
+    const response = await axios.post(
+      baseUrl + 'api/integration/blog/articles/create/',
+      formData,
+      {
+        headers: {
+          'Authorization': `Bearer ${userInfo.access}`,
+          'Content-Type': 'multipart/form-data',
+        },
       }
+    );
+    if (response.status === 201) {
+      alert("Article created successfully");
     }
-  },
-};
-</script>
+  } catch (error) {
+    console.error("Error creating article:", error);
+    alert("Failed to create article. Please check your input and try again.");
+  }
+}
+  }};
+  </script>
 
 <style scoped>
 .post {

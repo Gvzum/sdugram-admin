@@ -8,8 +8,8 @@
               <h2>Manage <b>Users</b></h2>
             </div>
             <div class="col-sm-6">
-              <button class="btn btn-success" @click="addNewUserModal = true">
-                <img src="../assets/addIcon.svg" alt="" />Add new user
+              <button class="btn btn-primary" @click="addNewUserModal = true">
+                <div>Add new user</div>
               </button>
             </div>
           </div>
@@ -127,7 +127,7 @@
         try {
           const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
           const response = await axios.get(
-            `http://93.183.84.234:8000/api/manage/users/user?page=${this.currentPage}`,
+            `https://sdugram.kz/api/manage/users/user?page=${this.currentPage}`,
 
             {
               headers: {
@@ -157,7 +157,7 @@
       const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
       const nextPage = this.currentPage + 1;
       const response = await axios.get(
-        `http://93.183.84.234:8000/api/manage/users/user?page=${nextPage}`,
+        `https://sdugram.kz/api/manage/users/user?page=${nextPage}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -176,40 +176,40 @@
     }
   },
       
-      
-      async submitUserForm(user) {
-        try {
-          console.log(user);
-          const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
-          const formData = new FormData();
-          formData.append("username", this.username);
-          formData.append("email", this.email);
-          formData.append("password", this.password);
-          formData.append("role", this.role);
-          formData.append("is_active", this.is_active);
-          formData.append("first_name", this.first_name);
-          formData.append("last_name", this.last_name);
+  async submitUserForm() {
+  try {
+    const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
+    const formData = new FormData();
+    formData.append("username", this.username);
+    formData.append("email", this.email);
+    formData.append("password", this.password);
+    formData.append("role", this.role);
+    formData.append("is_active", this.is_active);
+    formData.append("first_name", this.first_name);
+    formData.append("last_name", this.last_name);
 
-          
-          const response = await axios.post(
-            "http://93.183.84.234:8000/api/manage/users/user/",
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-          console.log(response);
-          if (response.status === 201) {
-            alert("User created successfully");
-          }
-          this.addNewUserModal = false;
-        } catch (error) {
-          console.log(error.response.data);
-        }
-      },
+    const response = await axios.post(
+      "https://sdugram.kz/api/manage/users/user/",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(response);
+    if (response.status === 201) {
+      alert("User created successfully");
+    }
+    this.addNewUserModal = false;
+  } catch (error) {
+    console.log(error.response.data);
+    alert("Failed to create user. Please check your input and try again.");
+
+  }
+},
+
       openEditModal(user) {
       this.editUser = { ...user };
       this.editUserModal = true;
@@ -227,7 +227,7 @@
       password: this.editUser.password,
       };
     await axios.patch(
-      `http://93.183.84.234:8000/api/manage/users/user/${this.editUser.id}/`,
+      `https://sdugram.kz/api/manage/users/user/${this.editUser.id}/`,
       formData,
       {
         headers: {
@@ -247,7 +247,7 @@
         try {
           const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
           const response = await axios.patch(
-            `http://93.183.84.234:8000/api/manage/users/user/${user.id}`,
+            `https://sdugram.kz/api/manage/users/user/${user.id}`,
             { is_active: false },
             {
               headers: {
