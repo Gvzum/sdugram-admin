@@ -1,6 +1,7 @@
 <template>
+  <Header></Header>
   <div class="mentor-request-details">
-    <h2 class="heading">Mentor Request Details</h2>
+    <h3 class="heading">Mentor Request Details</h3>
     <div v-if="mentorRequest" class="details">
       <div class="detail-item">
         <label class="detail-label">Cover Letter:</label>
@@ -58,7 +59,7 @@ export default {
     const mentorId = this.$route.params.mentorId;
     const accessToken = JSON.parse(localStorage.getItem('user-info')).access;
     try {
-      const response = await axios.get(`http://93.183.84.234:8000/api/integration/mentor/mentor-request/${mentorId}`, {
+      const response = await axios.get(`https://sdugram.kz/api/integration/mentor/mentor-request/${mentorId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json"
@@ -73,63 +74,53 @@ export default {
 </script>
 <style scoped>
 .mentor-request-details {
-  background-image: url('../assets/lib.jpg');
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 40px 20px;
-  width: 100%;
-  margin: auto; 
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .heading {
-  color: #333;
-  font-size: 32px;
-  margin-bottom: 30px;
+  color: #007bff;
+  font-size: 28px;
+  margin-bottom: 20px;
   text-align: center;
-  width: 100%; 
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-bottom: 2px solid #007bff;
 }
 
 .details {
+  display: flex;
   flex-direction: column;
-  width: 45%; 
-  justify-content: center;
-
+  align-items: center;
 }
 
 .detail-item {
-  background-color: rgba(247, 247, 247, 0.9);
-  padding: 20px;
-  margin-bottom: 15px; 
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  width: 80%;
+  background-color: #f7f7f7;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
 }
-
 
 .detail-label {
   font-weight: bold;
-  color: #444;
+  color: #444; 
   margin-bottom: 5px;
 }
 
 p {
   margin: 0;
   color: #666;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .loading {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   color: #999;
-  width: 100%;
 }
 </style>
-
-
